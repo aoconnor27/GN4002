@@ -1,0 +1,708 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "a455c2c4-b05e-4afa-aba5-a20757944726",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%matplotlib inline\n",
+    "import pandas as pd\n",
+    "import seaborn as sns\n",
+    "import matplotlib.pyplot as plt\n",
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "7e98b316-c3e3-4d00-bdbf-a68318d3ed3b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "data = pd.read_csv(\"Sample results scoring - Scoring.csv\")\n",
+    "data = data[~pd.isna(data[\"Model\"])]\n",
+    "data = data[~pd.isna(data[\"Completeness\"])]\n",
+    "del data[\"Notes\"]\n",
+    "del data[\"Unnamed: 10\"]\n",
+    "del data[\"Total\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "129f8be8-9ff4-4fd0-9018-95727eacae70",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "mistral 0.2 500\n",
+      "mistral 0.2 2000\n",
+      "mistral 1 500\n",
+      "mistral 1 2000\n",
+      "gemma2 0.2 500\n",
+      "gemma2 0.2 2000\n",
+      "gemma2 1 500\n",
+      "gemma2 1 2000\n",
+      "phi3/14b 0.2 500\n",
+      "phi3/14b 0.2 2000\n",
+      "phi3/14b 1 500\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/tmp/ipykernel_17583/1905123872.py:8: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). Consider using `matplotlib.pyplot.close()`.\n",
+      "  figure = plt.figure(figsize=(8,16))\n",
+      "/tmp/ipykernel_17583/1905123872.py:15: UserWarning: Ignoring `palette` because no `hue` variable has been assigned.\n",
+      "  ax = sns.catplot(\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "phi3/14b 1 2000\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/tmp/ipykernel_17583/1905123872.py:15: UserWarning: Ignoring `palette` because no `hue` variable has been assigned.\n",
+      "  ax = sns.catplot(\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "llama3.1 0.2 500\n",
+      "llama3.1 0.2 2000\n",
+      "llama3.1 1 500\n",
+      "llama3.1 1 2000\n",
+      "phi3 0.2 500\n",
+      "phi3 0.2 2000\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/tmp/ipykernel_17583/1905123872.py:15: UserWarning: Ignoring `palette` because no `hue` variable has been assigned.\n",
+      "  ax = sns.catplot(\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "phi3 1 500\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/tmp/ipykernel_17583/1905123872.py:15: UserWarning: Ignoring `palette` because no `hue` variable has been assigned.\n",
+      "  ax = sns.catplot(\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "phi3 1 2000\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/tmp/ipykernel_17583/1905123872.py:15: UserWarning: Ignoring `palette` because no `hue` variable has been assigned.\n",
+      "  ax = sns.catplot(\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "gemma2/27b 0.2 500\n",
+      "gemma2/27b 0.2 2000\n",
+      "gemma2/27b 1 500\n",
+      "gemma2/27b 1 2000\n",
+      "llama3.2 0.2 500\n",
+      "llama3.2 0.2 2000\n",
+      "llama3.2 1 500\n",
+      "llama3.2 1 2000\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 500x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 500x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 500x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 500x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 500x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 800x1600 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<Figure size 686.875x500 with 0 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "\n",
+    "for model in set(data[\"Model\"]):\n",
+    "    # figure = plt.figure()\n",
+    "    # fig_num = 0\n",
+    "    for i, temp in enumerate([0.2, 1]):        \n",
+    "        for j, token in enumerate([500,2000]):\n",
+    "            print(model, temp, token)\n",
+    "            b2i = int(f\"{i}{j}\",2)+1\n",
+    "            figure = plt.figure(figsize=(8,16))\n",
+    "            # ax = figure.add_subplot(int(f'22{b2i}'))\n",
+    "            data2 = data.loc[((data[\"Model\"] == model) & (data.Temperature == temp) & (data.Tokens == token)  )]\n",
+    "            data2 = data2.melt(id_vars=['Prompt ID'], value_vars=[\"Machine readability\",\"Completeness\",\"Accuracy\"])\n",
+    "            # print(data2)\n",
+    "            data2 = data2.rename(columns={'value':'Score'})\n",
+    "            # print(i,j)\n",
+    "            ax = sns.catplot(\n",
+    "                data=data2, kind=\"bar\",\n",
+    "                x=\"Prompt ID\", y=\"Score\", hue=\"variable\",\n",
+    "                errorbar=None, palette=\"bright\", #alpha=.6, ax = ax\n",
+    "            ).set(title = f\"{model.replace('/','__')} {temp} {token}\")\n",
+    "            ax.tick_params(axis='x', rotation=90)\n",
+    "            # plt.set_title(f\"{model} {temp} {token}\")\n",
+    "            plt.tight_layout()\n",
+    "            plt.savefig(f\"{model.replace('/','__')}_{temp}_{token}.svg\")\n",
+    "            plt.clf()\n",
+    "    # break"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "eac0e378-b1c7-4379-b972-33fda884c89b",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.19"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
